@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Endereço</title>
+    <!-- CSS only -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi"
+      crossorigin="anonymous"
+    />
+  </head>
+  <body>
+    <nav class="navbar navbar-light bg-primary">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="#">
+          <img
+            src="https://cdn-icons-png.flaticon.com/512/4821/4821951.png"
+            alt=""
+            width="70"
+            height="64"
+            class="d-inline-block align-text-top"
+          />
+        </a>
+      </div>
+    </nav>
+
+    <div class="container w-50 mt-5 shadow p-3 mb-5 bg-white rounded">
+      <form id="form">
+        <div class="row">
+          <div class="col">
+            <div class="mb-3">
+              <label class="form-label">CEP:</label>
+              <input
+                id="cep"
+                name="cep"
+                type="text"
+                class="form-control"
+                placeholder="00000-000"
+              />
+            </div>
+            <div class="mb-3">
+              <label class="form-label">Rua:</label>
+              <input
+                id="rua"
+                name="rua"
+                type="text"
+                class="form-control"
+                disabled
+              />
+            </div>
+            <div class="mb-3">
+              <label class="form-label">Bairro:</label>
+              <input
+                id="bairro"
+                name="bairo"
+                type="text"
+                class="form-control"
+                disabled
+              />
+            </div>
+            <div class="mb-3">
+              <label class="form-label">Cidade:</label>
+              <input
+                id="cidade"
+                name="cidade"
+                type="text"
+                class="form-control"
+                disabled
+              />
+            </div>
+          </div>
+          <div class="col">
+            <div class="mb-3">
+              <label class="form-label">Estado:</label>
+              <input
+                id="estado"
+                name="estado"
+                type="text"
+                class="form-control"
+                disabled
+              />
+            </div>
+            <div class="mb-3">
+              <label class="form-label">Número:</label>
+              <input
+                id="numero"
+                name="numero"
+                type="text"
+                class="form-control"
+              />
+            </div>
+            <div class="mb-3">
+              <label class="form-label">Complemento:</label>
+              <input
+                id="complemento"
+                name="complemento"
+                type="text"
+                class="form-control"
+              />
+            </div>
+            <div class="mb-3">
+              <label class="form-label">DDD:</label>
+              <input
+                id="ddd"
+                name="ddd"
+                type="text"
+                class="form-control"
+                disabled
+              />
+            </div>
+          </div>
+        </div>
+      </form>
+
+      <div class="d-md-flex justify-content-md-end mt-3">
+        <button
+          onclick="limpaInput()"
+          id="btn"
+          class="btn btn-primary"
+          type="button"
+        >
+          Limpar campos
+        </button>
+      </div>
+    </div>
+    <script
+      src="https://code.jquery.com/jquery-3.6.1.min.js"
+      integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ="
+      crossorigin="anonymous"
+    ></script>
+
+    <script>
+      $("document").ready(() => {
+        let regexCep = /^[0-9]{5}-[\d]{3}$/;
+
+        $("#cep")
+          .change(function () {
+            let cep = $(this).val();
+
+            if (regexCep.test(cep)) {
+              let URL = `https://cep.awesomeapi.com.br/json/${cep}`;
+              $.ajax({
+                url: URL,
+                method: "GET",
+                dataType: "json",
+              }).done((data) => {
+                $("#estado").val(data.state).attr("disabled", false);
+                $("#rua").val(data.address).attr("disabled", false);
+                $("#bairro").val(data.district).attr("disabled", false);
+                $("#cidade").val(data.city).attr("disabled", false);
+                $("#ddd").val(data.ddd).attr("disabled", false);
+                $("#numero").focus();
+              });
+            } else {
+              alert("Digite um CEP correto!");
+              $("#cep").focus();
+              limpaInput();
+            }
+          })
+
+          .fail((_, status, msg) => {
+            alert(`Status: ${status}\n ${msg}`);
+          });
+      });
+
+      function limpaInput() {
+        $("#cep").val("");
+        $("#estado").val("").attr("disabled", true);
+        $("#rua").val("").attr("disabled", true);
+        $("#bairro").val("").attr("disabled", true);
+        $("#cidade").val("").attr("disabled", true);
+        $("#ddd").val("").attr("disabled", true);
+        $("#cep").focus();
+      }
+    </script>
+  </body>
+</html>

@@ -132,6 +132,7 @@
       integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ="
       crossorigin="anonymous"
     ></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js" integrity="sha512-pHVGpX7F/27yZ0ISY+VVjyULApbDlD0/X0rgGbTqCE7WFW5MezNTWG/dnhtbBuICzsd0WQPgpE4REBLv+UqChw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
     <script>
       $("document").ready(() => {
@@ -139,7 +140,7 @@
 
         $("#cep")
           .change(function () {
-            let cep = $(this).val();
+            let cep = $(this).mask("00000-000").val();
 
             if (regexCep.test(cep)) {
               let URL = `https://cep.awesomeapi.com.br/json/${cep}`;
@@ -148,11 +149,11 @@
                 method: "GET",
                 dataType: "json",
               }).done((data) => {
-                $("#estado").val(data.state).attr("disabled", false);
-                $("#rua").val(data.address).attr("disabled", false);
-                $("#bairro").val(data.district).attr("disabled", false);
-                $("#cidade").val(data.city).attr("disabled", false);
-                $("#ddd").val(data.ddd).attr("disabled", false);
+                $("#estado").val(data.state);
+                $("#rua").val(data.address);
+                $("#bairro").val(data.district);
+                $("#cidade").val(data.city);
+                $("#ddd").val(data.ddd);
                 $("#numero").focus();
               });
             } else {

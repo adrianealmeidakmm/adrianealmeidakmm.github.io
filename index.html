@@ -124,7 +124,6 @@
         <div >
           <div class="d-md-flex justify-content-md-end mt-3">
             <button
-              onclick="cadastraEndereco()"
               id="cadastrar_endereco"
               class="btn btn-primary "
               type="button"
@@ -132,7 +131,7 @@
               Cadastrar endereço
             </button>
           </div>
-          <div class="d-md-flex justify-content-md-end mt-3">
+          <!-- <div class="d-md-flex justify-content-md-end mt-3">
             <button
               onclick="limpaInput()"
               id="btn"
@@ -141,14 +140,14 @@
             >
               Limpar campos  
             </button>
-          </div>
+          </div> -->
 
         </div>
 
       </div>
 
       <div class="container w-100">
-        <table id="tabela" class="table mb-5 border">
+        <table id="tabela" class="table mb-5 border border-3 rounded-2">
           <thead class="thead bg-primary">
             <tr>
               <th scope="col">CEP</th>
@@ -164,6 +163,15 @@
           <tbody>
           </tbody>
         </table>
+        <div class="d-md-flex justify-content-md-end mt-2 mb-5">
+          <button
+            id="btn_limpar_tabela"
+            class="btn btn-outline-danger"
+            type="button"
+          >
+            Limpar tabela 
+          </button>
+        </div>
       </div>
     </div>
 

@@ -3,7 +3,7 @@ $("document").ready(() => {
 
   let regexCep = /^[0-9]{5}-[\d]{3}$/;
 
-  $("#cep").change(function () {
+  $("#cep").focusout(function () {
     let cep = $(this).mask("00000-000").val();
 
     if (regexCep.test(cep)) {
@@ -21,12 +21,13 @@ $("document").ready(() => {
         $("#numero").focus();
       });
     } else {
-      alert("Digite um CEP correto!");
+      // alert("Digite um CEP correto!");
       $("#cep").focus();
-      // limpaInput();
     }
   });
-});
+
+  
+
 
 function BuscaDadosParaMontarTabela() {
   let urlEndereco = `http://51.81.87.67:8085/endereco`;
@@ -35,7 +36,6 @@ function BuscaDadosParaMontarTabela() {
     method: "GET",
     dataType: "json",
   }).done((data) => {
-    console.log(data);
     montaTabelaDeEnderecos(data);
   });
 }
@@ -59,7 +59,7 @@ function montaTabelaDeEnderecos(datas) {
   });
 }
 
-function cadastraEndereco() {
+$("#cadastrar_endereco").click(function() {
   let numero = $("#numero").val();
 
   if (numero !== "") {
@@ -84,7 +84,7 @@ function cadastraEndereco() {
     alert("Digite um número");
   }
   limpaInput();
-}
+})
 
 function limpaInput() {
   $("#cep").val("");
@@ -97,3 +97,18 @@ function limpaInput() {
   $("#ddd").val("").attr("disabled", true);
   $("#cep").focus();
 }
+
+
+$("#btn_limpar_tabela").click(function() {
+  let url = `http://51.81.87.67:8085/reset`;
+  $.ajax({
+    url: url,
+    method: "GET",
+    dataType: "json",
+  }).done((data) => {
+    console.log(data)
+  });
+  BuscaDadosParaMontarTabela();
+})
+
+});

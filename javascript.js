@@ -21,6 +21,7 @@ $("document").ready(() => {
         $("#numero").focus();
       });
     } else {
+      alert("Cadastrado com Sucesso!")
       $("#cep").focus();
     }
   });

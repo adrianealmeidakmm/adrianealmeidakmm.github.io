@@ -21,16 +21,13 @@ $("document").ready(() => {
         $("#numero").focus();
       });
     } else {
-      // alert("Digite um CEP correto!");
       $("#cep").focus();
     }
   });
 
-  
-
 
 function BuscaDadosParaMontarTabela() {
-  let urlEndereco = `http://51.81.87.67:8085/endereco`;
+  let urlEndereco = `http://51.81.87.67:8085/endereco`; 
   $.ajax({
     url: urlEndereco,
     method: "GET",
@@ -107,7 +104,9 @@ $("#btn_limpar_tabela").click(function() {
     dataType: "json",
   }).done((data) => {
     console.log(data)
+   
   });
+  alert("Deseja excluir os dados da tabela!")
   BuscaDadosParaMontarTabela();
 })
 

@@ -21,6 +21,7 @@ $("document").ready(() => {
         $("#numero").focus();
       });
     } else {
+      
       $("#cep").focus();
     }
   });
@@ -80,6 +81,7 @@ $("#cadastrar_endereco").click(function() {
   } else {
     alert("Digite um número");
   }
+  alert("Cadastrado com sucesso !")
   limpaInput();
 })
 
